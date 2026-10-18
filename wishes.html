@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#12a8f5">
   <title>Наш список для Саши</title>
-  <link rel="stylesheet" href="styles.css?v=personal-text-3">
+  <link rel="stylesheet" href="styles.css?v=cloud-catalog">
 </head>
 <body class="race-page">
   <div class="skyline" aria-hidden="true"></div>
@@ -17,15 +17,27 @@
     </header>
     <p class="page-note">Собрали здесь полезные вещи для малышки. Список будет пополняться — пока готовим для него первые заезды! 💙</p>
     <main class="category-grid" aria-label="Категории списка">
-      <article class="category-card"><span class="category-icon" aria-hidden="true">🛏️</span><h2>Сон и уют</h2><p>Всё, что поможет устроить уютное место для отдыха.</p><span class="soon">Скоро добавим товары</span></article>
-      <article class="category-card"><span class="category-icon" aria-hidden="true">👕</span><h2>Одежда</h2><p>Мягкие и удобные вещи для первых прогулок и дома.</p><span class="soon">Скоро добавим товары</span></article>
-      <article class="category-card"><span class="category-icon" aria-hidden="true">🛁</span><h2>Купание и уход</h2><p>Небольшие полезности для ежедневной заботы.</p><span class="soon">Скоро добавим товары</span></article>
-      <article class="category-card"><span class="category-icon" aria-hidden="true">🚼</span><h2>Прогулки</h2><p>Вещи для поездок, прогулок и путешествий втроём.</p><span class="soon">Скоро добавим товары</span></article>
-      <article class="category-card"><span class="category-icon" aria-hidden="true">🧸</span><h2>Игры и развитие</h2><p>Первые игрушки и идеи для весёлого знакомства с миром.</p><span class="soon">Скоро добавим товары</span></article>
-      <article class="category-card"><span class="category-icon" aria-hidden="true">✨</span><h2>Разное</h2><p>То, чему пока не нашлось отдельной гоночной трассы.</p><span class="soon">Скоро добавим товары</span></article>
+      <button class="category-card" type="button" data-category="sleep"><span class="category-icon" aria-hidden="true">🛏️</span><span class="category-card-title">Сон и уют</span><span class="category-card-description">Всё, что поможет устроить уютное место для отдыха.</span><span class="soon">Открыть категорию</span></button>
+      <button class="category-card" type="button" data-category="clothes"><span class="category-icon" aria-hidden="true">👕</span><span class="category-card-title">Одежда</span><span class="category-card-description">Мягкие и удобные вещи для первых прогулок и дома.</span><span class="soon">Открыть категорию</span></button>
+      <button class="category-card" type="button" data-category="bathing"><span class="category-icon" aria-hidden="true">🛁</span><span class="category-card-title">Купание и уход</span><span class="category-card-description">Небольшие полезности для ежедневной заботы.</span><span class="soon">Открыть категорию</span></button>
+      <button class="category-card" type="button" data-category="walks"><span class="category-icon" aria-hidden="true">🚼</span><span class="category-card-title">Прогулки</span><span class="category-card-description">Вещи для поездок, прогулок и путешествий втроём.</span><span class="soon">Открыть категорию</span></button>
+      <button class="category-card" type="button" data-category="play"><span class="category-icon" aria-hidden="true">🧸</span><span class="category-card-title">Игры и развитие</span><span class="category-card-description">Первые игрушки и идеи для весёлого знакомства с миром.</span><span class="soon">Открыть категорию</span></button>
+      <button class="category-card" type="button" data-category="other"><span class="category-icon" aria-hidden="true">✨</span><span class="category-card-title">Разное</span><span class="category-card-description">То, чему пока не нашлось отдельной гоночной трассы.</span><span class="soon">Открыть категорию</span></button>
     </main>
     <footer class="subpage-foot"><a class="start-button" href="index.html?v=personal-text-3"><span>Вернуться на старт</span><span class="button-arrow" aria-hidden="true">↩</span></a></footer>
   </div>
+  <dialog class="product-dialog" aria-labelledby="dialog-title">
+    <section class="cloud-panel">
+      <button class="dialog-close" type="button" aria-label="Закрыть окно">×</button>
+      <div class="cloud-content">
+        <span class="dialog-icon" aria-hidden="true"></span>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-description"></p>
+        <div class="product-list"></div>
+      </div>
+    </section>
+  </dialog>
+  <script src="categories.js?v=cloud-catalog" defer></script>
 </body>
 </html>
 

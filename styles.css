@@ -55,6 +55,102 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 @media (max-width: 800px) { .page-wrap { width: min(680px, calc(100% - 34px)); }.intro-layout { grid-template-columns: 1fr; gap: 28px; }.paper-card { padding: 30px 32px; }.paper-card p { font-size: 18px; }.portrait-card { width: min(410px, 84%); justify-self: center; }.portrait { aspect-ratio: 4 / 4.4; }.start-button { margin-top: 42px; width: 90%; min-height: 96px; }.car-blue { left: -12px; bottom: 5px; }.car-red { right: -15px; bottom: 4px; }.track-top { top: 48%; } }
 @media (max-width: 520px) { .page-wrap { width: calc(100% - 26px); padding-top: 13px; }.title-plaque { width: 91%; padding: 15px 17px; border-width: 4px; border-radius: 22px; }.title-plaque h1 { font-size: clamp(23px, 7vw, 34px); }.flag-left { left: -30px; }.flag-right { right: -30px; }.paper-card { padding: 25px 21px; border-radius: 30px; }.paper-card p { font-size: 16px; margin-bottom: 15px; }.sticker-car { left: -11px; top: -22px; font-size: 37px; }.star-one { top: 83px; left: -12px; font-size: 32px; }.sticker-flag { right: -22px; font-size: 37px; }.portrait-card { width: 88%; }.start-button { width: 95%; padding: 20px 48px 20px 35px; border-width: 5px; border-radius: 31px; font-size: clamp(24px, 7vw, 34px); }.button-checkers { left: -16px; bottom: -23px; font-size: 48px; }.button-arrow { right: 14px; font-size: 25px; }.home-footer { padding: 0 22px; font-size: 12px; }.subpage-head { align-items: flex-start; flex-direction: column; }.subpage-title { width: 100%; }.category-grid { grid-template-columns: 1fr; gap: 14px; }.category-card { min-height: 145px; }.page-note { font-size: 16px; }.subpage-foot .start-button { width: 94%; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+/* Interactive category cards, cloud-shaped desktop catalog, and mobile category view. */
+.category-card {
+  width: 100%;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+.category-card-title { display: block; margin: 0 0 10px; font-size: 25px; font-weight: 700; }
+.category-card-description { display: block; color: #5d6e87; line-height: 1.45; }
+.category-card:hover { transform: translateY(-3px); filter: brightness(1.02); box-shadow: 0 10px 0 #1179c5; }
+.category-card:active { transform: translateY(4px); box-shadow: 0 3px 0 #1179c5; }
+.category-card:focus-visible { outline: 4px solid #ffcf25; outline-offset: 7px; }
+.soon { transition: background 150ms ease, color 150ms ease; }
+.category-card:hover .soon { background: #dcedff; color: #0759aa; }
+.product-dialog {
+  width: min(680px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(82vh, 760px);
+  padding: 26px 22px 30px;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+.product-dialog::backdrop { background: #063b70a8; backdrop-filter: blur(4px); }
+.cloud-panel {
+  position: relative;
+  z-index: 0;
+  min-height: 330px;
+  padding: 44px 42px 38px;
+  border: 5px solid #087fd2;
+  border-radius: 43% 43% 34% 34% / 25% 25% 22% 22%;
+  background: linear-gradient(180deg, #fffefa 0%, #e9f8ff 100%);
+  box-shadow: 0 9px 0 #0759aa, inset 0 0 0 4px #fff, inset 0 -9px 0 #c8edff;
+}
+.cloud-panel::before,
+.cloud-panel::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  border: 5px solid #087fd2;
+  background: #f8fcff;
+  box-shadow: inset 0 0 0 4px #fff;
+}
+.cloud-panel::before { width: 180px; height: 115px; top: 30px; left: -12px; border-radius: 60% 48% 35% 35%; }
+.cloud-panel::after { width: 190px; height: 122px; top: 24px; right: -12px; border-radius: 48% 60% 35% 35%; }
+.cloud-content { position: relative; max-height: calc(82vh - 110px); overflow: auto; padding: 32px 15px 8px; text-align: center; }
+.dialog-close {
+  position: absolute;
+  z-index: 2;
+  top: 17px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #087fd2;
+  color: white;
+  font: 30px/1 Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #0759aa;
+}
+.dialog-close:hover { background: #0759aa; }
+.dialog-icon { display: block; margin-bottom: 5px; font: 45px Arial, sans-serif; }
+.cloud-content h2 { margin: 0 0 10px; color: var(--navy); font-size: clamp(26px, 4vw, 36px); font-style: italic; }
+.dialog-description { margin: 0 auto 19px; max-width: 440px; color: #5d6e87; line-height: 1.45; }
+.empty-products { max-width: 390px; margin: 0 auto; padding: 16px 21px; border: 2px dashed #36b3ef; border-radius: 24px; background: #fffefa; line-height: 1.45; }
+.products { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; text-align: left; }
+.product-item { padding: 15px 18px; border: 2px dashed #36b3ef; border-radius: 18px 25px 17px 24px; background: #fffefa; }
+.product-item p { margin: 7px 0; color: #5d6e87; }
+.product-item a { color: #0875ca; font-weight: 700; }
+.product-price { display: block; margin-top: 7px; color: #0759aa; font-weight: 700; }
+.category-page-wrap { max-width: 760px; min-height: 100svh; padding-top: max(20px, env(safe-area-inset-top)); }
+.category-back { margin: 0 0 22px; }
+.mobile-category-card { padding: clamp(22px, 6vw, 42px); border: 4px dashed #2aace8; border-radius: 32px 28px 37px 30px; outline: 5px solid #fffdf4; background: #fffdf8; box-shadow: 0 9px 0 #1179c5, 0 15px 20px #06416a2c; }
+.mobile-category-heading { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+.mobile-category-heading .subpage-title { padding: 11px 18px; font-size: clamp(23px, 6vw, 36px); }
+.mobile-category-icon { font: 38px Arial, sans-serif; }
+.mobile-category-description { margin: 0 auto 24px; color: #5d6e87; text-align: center; line-height: 1.5; }
+.mobile-category-card .empty-products { max-width: none; }
+@media (max-width: 700px) {
+  .category-card { min-height: 145px; }
+  .category-card:active { transform: scale(.985); }
+  .product-dialog { display: none; }
+  .category-page-wrap { width: calc(100% - 28px); }
+  .mobile-category-card { min-height: 280px; }
+}
+@media (max-width: 420px) {
+  .cloud-panel { padding: 42px 22px 28px; }
+  .cloud-panel::before { width: 140px; left: -10px; }
+  .cloud-panel::after { width: 150px; right: -10px; }
+  .cloud-content { padding-right: 5px; padding-left: 5px; }
+}
 /* Wide homepage layout: extend the racing scene instead of leaving blue side gutters. */
 .home-page {
   width: min(2360px, calc(100% - clamp(30px, 4.5vw, 120px)));
