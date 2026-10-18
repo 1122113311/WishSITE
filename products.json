@@ -1,9 +1,17 @@
 {
-  "sleep": [],
+  "sleep": [
+    {
+      "id": "32d3deb4-9526-4205-8c1f-a750e5e35ed1",
+      "name": "супер пупер топ за свои деньги",
+      "price": "5502",
+      "url": "https://www.ozon.ru/product/aula-f98pro-v3-gradient-grey-leobog-caramel-latte-besprovodnaya-mehanicheskaya-igrovaya-klaviatura-3224963992/?at=1s-o1PKT90m8q6liguxdUdlvCt4eAyJi&sh=AC2g7wRyeg",
+      "image": "https://ir.ozone.ru/s3/multimedia-1-x/wc2500/8602419993.jpg",
+      "description": ""
+    }
+  ],
   "clothes": [],
   "bathing": [],
   "walks": [],
   "play": [],
   "other": []
 }
-
