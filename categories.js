@@ -52,7 +52,7 @@
     card.addEventListener('click', () => {
       const key = card.dataset.category;
       if (mobile.matches) {
-        window.location.href = `category.html?category=${encodeURIComponent(key)}&v=cloud-catalog`;
+        window.location.href = `category.html?category=${encodeURIComponent(key)}&v=cloud-catalog-9494789`;
         return;
       }
       const category = categories[key];
@@ -79,7 +79,7 @@
     const key = new URLSearchParams(window.location.search).get('category');
     const category = categories[key];
     if (!category) {
-      window.location.replace('wishes.html?v=cloud-catalog');
+      window.location.replace('wishes.html?v=cloud-catalog-9494789');
       return;
     }
     document.title = `${category.title} — список для Саши`;
