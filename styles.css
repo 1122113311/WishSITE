@@ -137,4 +137,28 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   .home-page .button-arrow { right: 15px; font-size: 26px; }
 }
 .race-page { overflow-x: hidden; overflow-y: auto; }
+.home-page { justify-content: flex-start; }
+.home-content { flex: 0 0 auto; min-height: min(58svh, 860px); }
+.home-photo { width: min(100%, 58svh, 900px); }
+.home-start { margin-top: clamp(13px, 1.5vh, 23px); }
+.home-start .button-car { position: absolute; z-index: 2; left: -5.5%; bottom: -17px; width: clamp(135px, 12vw, 238px); line-height: 0; filter: drop-shadow(0 5px 2px #12396370); }
+.home-start .button-car svg { display: block; width: 100%; height: auto; }
+.home-start > span:nth-child(2) { padding-left: clamp(80px, 8vw, 155px); }
+.home-page::after {
+  content: ""; position: absolute; z-index: -1; left: 50%; bottom: -18px; width: 100vw; height: clamp(58px, 9vh, 125px); transform: translateX(-50%);
+  background: repeating-linear-gradient(90deg, transparent 0 78px, #f4f7e9 78px 126px, transparent 126px 210px) center 75% / auto 5px no-repeat,
+    linear-gradient(180deg, #84d34f 0 20%, #315b75 21% 84%, #f8f7e7 85% 89%, #27506d 90% 100%);
+  clip-path: polygon(0 13%, 8% 8%, 18% 18%, 28% 9%, 39% 17%, 51% 7%, 63% 18%, 76% 8%, 88% 17%, 100% 10%, 100% 100%, 0 100%);
+}
+@media (max-width: 900px) {
+  .home-content { min-height: min(58svh, 700px); }
+  .home-photo { width: min(100%, 52svh); }
+}
+@media (max-width: 620px) {
+  .home-content { min-height: 0; }
+  .home-photo { width: min(100%, 500px); }
+  .home-start .button-car { left: -4%; bottom: -12px; width: 118px; }
+  .home-start > span:nth-child(2) { padding-left: 72px; }
+  .home-page::after { height: 68px; bottom: -25px; }
+}
 
