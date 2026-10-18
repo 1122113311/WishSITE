@@ -208,3 +208,79 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 .screen-reader { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (prefers-reduced-motion: reduce) { .continue-link, .continue-link::after { transition: none; } }
 
+/* The supplied first-page mockup stays whole; only its CTA is an interactive layer. */
+.mockup-page {
+  min-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #29b5f1;
+}
+.design {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  line-height: 0;
+}
+.design-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.continue-link {
+  position: absolute;
+  z-index: 2;
+  left: 22%;
+  top: 76%;
+  width: 54.5%;
+  height: 18.5%;
+  display: block;
+  overflow: hidden;
+  border: 0;
+  border-radius: clamp(18px, 3vw, 54px);
+  background: transparent;
+  color: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 110ms ease;
+}
+.continue-link::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  opacity: 0;
+  background: linear-gradient(180deg, #a95c0018, #8d3b0030);
+  box-shadow: inset 0 7px 13px #7a350044, inset 0 -2px 0 #fff5;
+  transition: opacity 110ms ease;
+}
+.continue-link:active {
+  transform: translateY(6px) scale(.99);
+}
+.continue-link:active::after {
+  opacity: 1;
+}
+.continue-link:focus-visible {
+  outline: 4px dashed white;
+  outline-offset: 3px;
+}
+.screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .continue-link,
+  .continue-link::after {
+    transition: none;
+  }
+}
+
