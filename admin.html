@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12a8f5">
+  <title>Управление списком — сайт для Саши</title>
+  <link rel="stylesheet" href="styles.css?v=admin-panel-1">
+</head>
+<body class="race-page admin-page">
+  <div class="skyline" aria-hidden="true"></div>
+  <div class="track track-top" aria-hidden="true"></div>
+  <div class="page-wrap admin-wrap">
+    <header class="admin-header">
+      <a class="back-link" href="wishes.html?v=admin-panel-1">← К списку</a>
+      <h1 class="subpage-title">Гараж администратора 🏁</h1>
+    </header>
+
+    <section class="admin-auth-card" aria-labelledby="auth-title">
+      <h2 id="auth-title">Вход владельца</h2>
+      <p>Для управления нужен персональный GitHub-токен с доступом только к репозиторию <strong>WishSITE</strong>. Панель проверит, что вы вошли под аккаунтом владельца сайта.</p>
+      <form id="login-form" class="admin-login-form">
+        <label for="github-token">Fine-grained GitHub token</label>
+        <input id="github-token" name="token" type="password" autocomplete="off" spellcheck="false" required placeholder="github_pat_…">
+        <button class="admin-primary-button" type="submit">Войти в панель</button>
+      </form>
+      <div class="token-help">
+        <p>Создай токен для репозитория <strong>1122113311/WishSITE</strong> с разрешением <strong>Contents: Read and write</strong>.</p>
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Открыть настройки токенов GitHub ↗</a>
+        <p class="privacy-note">Токен хранится только в памяти этой вкладки, не записывается в файлы сайта и забывается при перезагрузке.</p>
+      </div>
+    </section>
+
+    <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
+
+    <section id="admin-workspace" class="admin-workspace" hidden>
+      <div class="admin-toolbar">
+        <div>
+          <h2>Товары для Саши</h2>
+          <p id="signed-in-as" class="signed-in-as"></p>
+        </div>
+        <button id="logout-button" class="admin-secondary-button" type="button">Выйти</button>
+      </div>
+
+      <form id="product-form" class="product-editor">
+        <h3 id="form-title">Добавить товар</h3>
+        <input id="product-id" name="id" type="hidden">
+        <label for="product-category">Категория</label>
+        <select id="product-category" name="category" required>
+          <option value="sleep">Сон и уют</option>
+          <option value="clothes">Одежда</option>
+          <option value="bathing">Купание и уход</option>
+          <option value="walks">Прогулки</option>
+          <option value="play">Игры и развитие</option>
+          <option value="other">Разное</option>
+        </select>
+        <label for="product-name">Название товара</label>
+        <input id="product-name" name="name" required maxlength="140" placeholder="Например, кроватка">
+        <div class="admin-form-row">
+          <div><label for="product-price">Цена</label><input id="product-price" name="price" maxlength="80" placeholder="Например, 12 990 ₽"></div>
+          <div><label for="product-url">Ссылка на товар</label><input id="product-url" name="url" type="url" placeholder="https://…"></div>
+        </div>
+        <label for="product-image">Ссылка на фотографию <span>(необязательно)</span></label>
+        <input id="product-image" name="image" type="url" placeholder="https://…">
+        <label for="product-description">Комментарий</label>
+        <textarea id="product-description" name="description" rows="3" maxlength="600" placeholder="Размер, цвет или заметка для себя"></textarea>
+        <div class="admin-form-actions">
+          <button id="save-product-button" class="admin-primary-button" type="submit">Добавить товар</button>
+          <button id="cancel-edit-button" class="admin-secondary-button" type="button" hidden>Отменить правку</button>
+        </div>
+      </form>
+
+      <div class="admin-products-heading">
+        <h3>Список товаров</h3>
+        <button id="publish-button" class="admin-primary-button" type="button">Сохранить на сайте</button>
+      </div>
+      <div id="admin-product-list" class="admin-product-list"></div>
+    </section>
+  </div>
+  <script src="admin.js?v=admin-panel-1" defer></script>
+</body>
+</html>
+

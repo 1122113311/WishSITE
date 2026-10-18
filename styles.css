@@ -124,6 +124,7 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 .empty-products { max-width: 390px; margin: 0 auto; padding: 16px 21px; border: 2px dashed #36b3ef; border-radius: 24px; background: #fffefa; line-height: 1.45; }
 .products { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; text-align: left; }
 .product-item { padding: 15px 18px; border: 2px dashed #36b3ef; border-radius: 18px 25px 17px 24px; background: #fffefa; }
+.product-image { display: block; width: min(220px, 100%); max-height: 190px; margin: 0 auto 12px; border-radius: 14px; object-fit: contain; }
 .product-item p { margin: 7px 0; color: #5d6e87; }
 .product-item a { color: #0875ca; font-weight: 700; }
 .product-price { display: block; margin-top: 7px; color: #0759aa; font-weight: 700; }
@@ -147,6 +148,84 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   .cloud-panel { min-height: 420px; height: min(72vh, 520px); }
   .cloud-content { inset: 104px 42px 42px; padding-right: 4px; padding-left: 4px; }
   .dialog-close { top: 75px; right: 34px; }
+}
+
+/* Owner-only product editor. GitHub access token stays in page memory. */
+.admin-wrap { width: min(900px, calc(100% - 32px)); padding-top: 24px; padding-bottom: 64px; }
+.admin-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; margin-bottom: 24px; }
+.admin-header .back-link { justify-self: start; }
+.admin-header .subpage-title { grid-column: 2; }
+.admin-auth-card,
+.admin-workspace { padding: clamp(22px, 4vw, 38px); border: 4px dashed #2aace8; border-radius: 32px 27px 36px 30px; outline: 5px solid #fffdf4; background: #fffdf8; box-shadow: 0 9px 0 #1179c5, 0 15px 22px #06416a2c; }
+.admin-auth-card h2,
+.admin-toolbar h2 { margin: 0 0 12px; color: var(--navy); font-size: clamp(26px, 4vw, 34px); font-style: italic; }
+.admin-auth-card > p { line-height: 1.55; }
+.admin-login-form,
+.product-editor { display: grid; gap: 11px; }
+.admin-login-form { max-width: 620px; margin: 22px auto; }
+.admin-page label { color: var(--navy); font-weight: 700; }
+.admin-page label span { color: #6f8097; font-weight: 400; }
+.admin-page input,
+.admin-page select,
+.admin-page textarea { width: 100%; min-height: 47px; padding: 11px 13px; border: 2px solid #9bdcff; border-radius: 13px; background: white; color: var(--ink); font: 16px/1.4 Georgia, "Times New Roman", serif; }
+.admin-page textarea { resize: vertical; }
+.admin-page input:focus,
+.admin-page select:focus,
+.admin-page textarea:focus { border-color: #087fd2; outline: 3px solid #9edfff80; }
+.admin-primary-button,
+.admin-secondary-button,
+.admin-delete-button { min-height: 43px; padding: 10px 17px; border-radius: 14px; font: 700 15px Arial, sans-serif; cursor: pointer; transition: transform 100ms ease, filter 100ms ease; }
+.admin-primary-button { border: 2px solid #087fd2; background: linear-gradient(#ffe747, #ffad00); color: #16264b; box-shadow: 0 4px 0 #0759aa; }
+.admin-secondary-button { border: 2px solid #a8dcf8; background: #eef9ff; color: var(--navy); box-shadow: 0 3px 0 #77bce1; }
+.admin-delete-button { border: 2px solid #e7aaa0; background: #fff1ed; color: #9b3428; box-shadow: 0 3px 0 #d89084; }
+.admin-primary-button:hover,
+.admin-secondary-button:hover,
+.admin-delete-button:hover { filter: brightness(1.04); transform: translateY(-1px); }
+.admin-primary-button:active,
+.admin-secondary-button:active,
+.admin-delete-button:active { transform: translateY(2px); }
+.admin-primary-button:disabled { cursor: wait; filter: grayscale(.3); opacity: .7; }
+.token-help { max-width: 620px; margin: 0 auto; padding: 17px 19px; border: 2px dashed #9bdcff; border-radius: 18px; background: #f0faff; line-height: 1.5; }
+.token-help p { margin: 0 0 9px; }
+.token-help a { color: #0875ca; font-weight: 700; }
+.token-help .privacy-note { margin: 12px 0 0; color: #55708a; font-size: 14px; }
+.admin-status { min-height: 24px; margin: 20px 0; text-align: center; font-weight: 700; }
+.admin-status.is-success { color: #176c3b; }
+.admin-status.is-error { color: #a23428; }
+.admin-status.is-pending { color: #87600a; }
+.admin-toolbar,
+.admin-products-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.admin-toolbar { margin-bottom: 24px; }
+.admin-toolbar h2 { margin-bottom: 4px; }
+.signed-in-as { margin: 0; color: #5d6e87; }
+.product-editor { padding: 22px; border: 2px dashed #65c5f1; border-radius: 23px; background: #f2faff; }
+.product-editor h3,
+.admin-products-heading h3 { margin: 0 0 7px; color: var(--navy); font-size: 23px; }
+.admin-form-row { display: grid; grid-template-columns: minmax(130px, .65fr) minmax(0, 1.35fr); gap: 15px; }
+.admin-form-row > div { display: grid; gap: 8px; }
+.admin-form-actions { display: flex; gap: 11px; margin-top: 7px; }
+.admin-products-heading { margin: 28px 0 13px; }
+.admin-products-heading h3 { margin: 0; }
+.admin-product-list { display: grid; gap: 16px; }
+.admin-product-group { padding: 17px; border-radius: 18px; background: #edf8ff; }
+.admin-product-group h4 { margin: 0 0 11px; color: var(--navy); font-size: 18px; }
+.admin-empty { margin: 0; color: #65788f; }
+.admin-product-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 9px; padding: 14px; border: 2px solid #d5efff; border-radius: 15px; background: white; }
+.admin-product-row p { margin: 6px 0; color: #5d6e87; }
+.admin-product-row a { color: #0875ca; }
+.admin-row-price { display: inline-block; margin-left: 11px; color: #0b6aaf; font-weight: 700; }
+.admin-row-actions { display: flex; flex-shrink: 0; gap: 8px; }
+@media (max-width: 620px) {
+  .admin-wrap { width: calc(100% - 26px); padding-top: 15px; }
+  .admin-header { grid-template-columns: 1fr; justify-items: stretch; gap: 14px; }
+  .admin-header .subpage-title { grid-column: 1; width: 100%; }
+  .admin-header .back-link { justify-self: start; }
+  .admin-form-row { grid-template-columns: 1fr; }
+  .admin-toolbar,
+  .admin-products-heading { align-items: flex-start; flex-direction: column; }
+  .admin-product-row { align-items: flex-start; flex-direction: column; }
+  .admin-row-actions { width: 100%; }
+  .admin-row-actions button { flex: 1; }
 }
 /* Wide homepage layout: extend the racing scene instead of leaving blue side gutters. */
 .home-page {

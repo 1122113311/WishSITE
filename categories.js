@@ -8,6 +8,20 @@
     other: { title: 'Разное', icon: '✨', description: 'То, чему пока не нашлось отдельной гоночной трассы.', products: [] }
   };
 
+  const catalogReady = fetch('products.json?v=cloud-shape-2', { cache: 'no-store' })
+    .then((response) => {
+      if (!response.ok) throw new Error('Не удалось загрузить список товаров.');
+      return response.json();
+    })
+    .then((catalog) => {
+      Object.keys(categories).forEach((key) => {
+        categories[key].products = Array.isArray(catalog[key]) ? catalog[key] : [];
+      });
+    })
+    .catch((error) => {
+      console.warn(error.message);
+    });
+
   const productMarkup = (products) => {
     if (!products.length) {
       const empty = document.createElement('p');
@@ -20,6 +34,14 @@
     products.forEach((product) => {
       const item = document.createElement('li');
       item.className = 'product-item';
+      if (product.image) {
+        const image = document.createElement('img');
+        image.className = 'product-image';
+        image.src = product.image;
+        image.alt = '';
+        image.loading = 'lazy';
+        item.append(image);
+      }
       const name = document.createElement('strong');
       name.textContent = product.name;
       item.append(name);
@@ -49,7 +71,8 @@
 
   const mobile = window.matchMedia('(max-width: 700px)');
   document.querySelectorAll('.category-card[data-category]').forEach((card) => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', async () => {
+      await catalogReady;
       const key = card.dataset.category;
       if (mobile.matches) {
         window.location.href = `category.html?category=${encodeURIComponent(key)}&v=cloud-catalog-9494789`;
@@ -82,11 +105,13 @@
       window.location.replace('wishes.html?v=cloud-catalog-9494789');
       return;
     }
-    document.title = `${category.title} — список для Саши`;
-    document.querySelector('.mobile-category-icon').textContent = category.icon;
-    document.querySelector('.mobile-category-heading h1').textContent = category.title;
-    document.querySelector('.mobile-category-description').textContent = category.description;
-    document.querySelector('.mobile-category-card .product-list').append(productMarkup(category.products));
+    catalogReady.then(() => {
+      document.title = `${category.title} — список для Саши`;
+      document.querySelector('.mobile-category-icon').textContent = category.icon;
+      document.querySelector('.mobile-category-heading h1').textContent = category.title;
+      document.querySelector('.mobile-category-description').textContent = category.description;
+      document.querySelector('.mobile-category-card .product-list').append(productMarkup(category.products));
+    });
   }
 })();
 
