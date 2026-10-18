@@ -55,4 +55,86 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 @media (max-width: 800px) { .page-wrap { width: min(680px, calc(100% - 34px)); }.intro-layout { grid-template-columns: 1fr; gap: 28px; }.paper-card { padding: 30px 32px; }.paper-card p { font-size: 18px; }.portrait-card { width: min(410px, 84%); justify-self: center; }.portrait { aspect-ratio: 4 / 4.4; }.start-button { margin-top: 42px; width: 90%; min-height: 96px; }.car-blue { left: -12px; bottom: 5px; }.car-red { right: -15px; bottom: 4px; }.track-top { top: 48%; } }
 @media (max-width: 520px) { .page-wrap { width: calc(100% - 26px); padding-top: 13px; }.title-plaque { width: 91%; padding: 15px 17px; border-width: 4px; border-radius: 22px; }.title-plaque h1 { font-size: clamp(23px, 7vw, 34px); }.flag-left { left: -30px; }.flag-right { right: -30px; }.paper-card { padding: 25px 21px; border-radius: 30px; }.paper-card p { font-size: 16px; margin-bottom: 15px; }.sticker-car { left: -11px; top: -22px; font-size: 37px; }.star-one { top: 83px; left: -12px; font-size: 32px; }.sticker-flag { right: -22px; font-size: 37px; }.portrait-card { width: 88%; }.start-button { width: 95%; padding: 20px 48px 20px 35px; border-width: 5px; border-radius: 31px; font-size: clamp(24px, 7vw, 34px); }.button-checkers { left: -16px; bottom: -23px; font-size: 48px; }.button-arrow { right: 14px; font-size: 25px; }.home-footer { padding: 0 22px; font-size: 12px; }.subpage-head { align-items: flex-start; flex-direction: column; }.subpage-title { width: 100%; }.category-grid { grid-template-columns: 1fr; gap: 14px; }.category-card { min-height: 145px; }.page-note { font-size: 16px; }.subpage-foot .start-button { width: 94%; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+/* Wide homepage layout: extend the racing scene instead of leaving blue side gutters. */
+.home-page {
+  width: min(2360px, calc(100% - clamp(30px, 4.5vw, 120px)));
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(12px, 1.6vh, 24px) 0 clamp(15px, 2vh, 28px);
+}
+.home-title {
+  width: min(1500px, 78%);
+  margin-bottom: clamp(12px, 1.6vh, 24px);
+  padding: clamp(13px, 1.4vh, 20px) clamp(25px, 3vw, 48px);
+}
+.home-title h1 { font-size: clamp(31px, 2.45vw, 58px); }
+.home-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, .92fr);
+  align-items: center;
+  gap: clamp(28px, 3.3vw, 78px);
+  flex: 1;
+  min-height: 0;
+}
+.home-copy {
+  padding: clamp(22px, 2.5vh, 38px) clamp(25px, 2.5vw, 58px);
+  font-size: clamp(17px, 1.05vw, 25px);
+  line-height: 1.27;
+}
+.home-copy p { margin-bottom: clamp(10px, 1.15vh, 17px); font-size: inherit; }
+.home-copy .hello { margin-bottom: clamp(16px, 1.8vh, 25px); font-size: 1.06em; }
+.home-copy .signoff { margin-bottom: 0; }
+.home-photo {
+  width: min(100%, 64svh, 960px);
+  justify-self: center;
+  margin: 0;
+  line-height: 0;
+  filter: drop-shadow(0 13px 0 #087ac6) drop-shadow(0 20px 20px #06416a38);
+  transform: rotate(1.4deg) translateX(clamp(0px, 1vw, 18px));
+}
+.home-photo img { display: block; width: 100%; height: auto; }
+.home-start {
+  z-index: 2;
+  flex: 0 0 auto;
+  width: min(1420px, 72%);
+  min-height: clamp(86px, 10svh, 138px);
+  margin: clamp(14px, 1.8vh, 26px) auto 0;
+}
+.screen-reader { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.home-page .sticker-car { left: -20px; top: -11px; font-size: clamp(38px, 3.1vw, 67px); }
+.home-page .star-one { left: -17px; top: 80px; }
+.home-page .sticker-flag { right: -29px; bottom: -18px; }
+@media (min-width: 1800px) {
+  .home-content { grid-template-columns: minmax(0, 1.2fr) minmax(0, .88fr); }
+  .home-copy { font-size: clamp(22px, 1.05vw, 27px); }
+}
+@media (max-width: 900px) {
+  .home-page { width: min(100% - 34px, 760px); min-height: 100svh; }
+  .home-title { width: 90%; }
+  .home-title h1 { font-size: clamp(26px, 4.6vw, 38px); }
+  .home-content { grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr); gap: 22px; }
+  .home-copy { padding: 24px 26px; font-size: clamp(15px, 1.9vw, 18px); }
+  .home-photo { width: min(100%, 58svh); }
+  .home-start { width: min(100%, 780px); min-height: 88px; font-size: clamp(25px, 4vw, 38px); }
+}
+@media (max-width: 620px) {
+  .home-page { width: calc(100% - 28px); min-height: auto; padding-top: 15px; }
+  .home-title { width: 92%; padding: 15px 13px; margin-bottom: 23px; }
+  .home-title h1 { font-size: clamp(22px, 6vw, 31px); }
+  .home-page .flag { font-size: 33px; }
+  .home-page .flag-left { left: -30px; }.home-page .flag-right { right: -30px; }
+  .home-content { display: flex; flex-direction: column; gap: 28px; }
+  .home-copy { width: 100%; padding: 26px 22px; font-size: 16px; }
+  .home-page .sticker-car { left: -13px; top: -19px; font-size: 38px; }
+  .home-page .star-one { top: 75px; left: -12px; font-size: 33px; }
+  .home-photo { width: min(100%, 500px); transform: rotate(1deg); }
+  .home-start { width: 94%; min-height: 83px; margin-top: 34px; margin-bottom: 30px; padding: 18px 48px 18px 30px; border-width: 5px; border-radius: 32px; font-size: clamp(23px, 6.2vw, 32px); }
+  .home-page .button-checkers { left: -18px; bottom: -21px; font-size: 48px; }
+  .home-page .button-arrow { right: 15px; font-size: 26px; }
+}
+.race-page { overflow-x: hidden; overflow-y: auto; }
 
