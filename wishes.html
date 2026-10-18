@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#12a8f5">
   <title>Наш список для Саши</title>
-  <link rel="stylesheet" href="styles.css?v=cloud-catalog-9494789">
+  <link rel="stylesheet" href="styles.css?v=cloud-shape-2">
 </head>
 <body class="race-page">
   <div class="skyline" aria-hidden="true"></div>
@@ -28,6 +28,23 @@
   </div>
   <dialog class="product-dialog" aria-labelledby="dialog-title">
     <section class="cloud-panel">
+      <svg class="cloud-shape" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="cloudFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fffefa" />
+            <stop offset="1" stop-color="#e7f7ff" />
+          </linearGradient>
+          <filter id="cloudShadow" x="-15%" y="-15%" width="130%" height="145%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+            <feOffset dy="11" />
+            <feComponentTransfer><feFuncA type="linear" slope="0.35" /></feComponentTransfer>
+            <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+        <path class="cloud-shadow" d="M166 452C91 452 38 407 38 343c0-45 25-82 68-103-24-51 10-117 70-123 23-59 91-81 145-43 39-67 133-66 171-1 57-42 133-18 148 41 70 5 105 81 66 137 47 43 54 121 2 164-16 24-43 37-81 37H166Z" />
+        <path class="cloud-outline" d="M166 452C91 452 38 407 38 343c0-45 25-82 68-103-24-51 10-117 70-123 23-59 91-81 145-43 39-67 133-66 171-1 57-42 133-18 148 41 70 5 105 81 66 137 47 43 54 121 2 164-16 24-43 37-81 37H166Z" />
+        <path class="cloud-inner-line" d="M166 440C98 440 51 400 51 343c0-39 22-73 64-93-23-44 7-105 63-111 25-52 82-71 130-36 42-60 120-59 160-2 52-38 118-16 134 40 63 4 93 71 59 122 42 38 46 102-1 142-16 23-40 35-75 35H166Z" />
+      </svg>
       <button class="dialog-close" type="button" aria-label="Закрыть окно">×</button>
       <div class="cloud-content">
         <span class="dialog-icon" aria-hidden="true"></span>

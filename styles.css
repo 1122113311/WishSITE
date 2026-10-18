@@ -73,10 +73,10 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 .soon { transition: background 150ms ease, color 150ms ease; }
 .category-card:hover .soon { background: #dcedff; color: #0759aa; }
 .product-dialog {
-  width: min(680px, calc(100% - 32px));
+  width: min(760px, calc(100% - 32px));
   max-width: none;
-  max-height: min(82vh, 760px);
-  padding: 26px 22px 30px;
+  max-height: min(86vh, 820px);
+  padding: 18px 20px 28px;
   overflow: visible;
   border: 0;
   background: transparent;
@@ -85,31 +85,28 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
 .product-dialog::backdrop { background: #063b70a8; backdrop-filter: blur(4px); }
 .cloud-panel {
   position: relative;
-  z-index: 0;
-  min-height: 330px;
-  padding: 44px 42px 38px;
-  border: 5px solid #087fd2;
-  border-radius: 43% 43% 34% 34% / 25% 25% 22% 22%;
-  background: linear-gradient(180deg, #fffefa 0%, #e9f8ff 100%);
-  box-shadow: 0 9px 0 #0759aa, inset 0 0 0 4px #fff, inset 0 -9px 0 #c8edff;
+  min-height: 455px;
+  height: min(62vh, 560px);
+  isolation: isolate;
 }
-.cloud-panel::before,
-.cloud-panel::after {
+.cloud-shape {
   position: absolute;
+  inset: 0;
   z-index: -1;
-  content: "";
-  border: 5px solid #087fd2;
-  background: #f8fcff;
-  box-shadow: inset 0 0 0 4px #fff;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 5px 0 #087fd2) drop-shadow(0 12px 0 #0759aa) drop-shadow(0 18px 16px #06416a45);
 }
-.cloud-panel::before { width: 180px; height: 115px; top: 30px; left: -12px; border-radius: 60% 48% 35% 35%; }
-.cloud-panel::after { width: 190px; height: 122px; top: 24px; right: -12px; border-radius: 48% 60% 35% 35%; }
-.cloud-content { position: relative; max-height: calc(82vh - 110px); overflow: auto; padding: 32px 15px 8px; text-align: center; }
+.cloud-shadow { fill: #0759aa; transform: translateY(5px); }
+.cloud-outline { fill: url(#cloudFill); stroke: #087fd2; stroke-width: 11px; stroke-linejoin: round; }
+.cloud-inner-line { fill: none; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+.cloud-content { position: absolute; inset: 114px 92px 48px; overflow: auto; padding: 20px 14px 6px; text-align: center; scrollbar-color: #48b8ef transparent; }
 .dialog-close {
   position: absolute;
   z-index: 2;
-  top: 17px;
-  right: 22px;
+  top: 87px;
+  right: 76px;
   width: 42px;
   height: 42px;
   border: 2px solid #fff;
@@ -146,10 +143,10 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   .mobile-category-card { min-height: 280px; }
 }
 @media (max-width: 420px) {
-  .cloud-panel { padding: 42px 22px 28px; }
-  .cloud-panel::before { width: 140px; left: -10px; }
-  .cloud-panel::after { width: 150px; right: -10px; }
-  .cloud-content { padding-right: 5px; padding-left: 5px; }
+  .product-dialog { width: calc(100% - 12px); padding-right: 10px; padding-left: 10px; }
+  .cloud-panel { min-height: 420px; height: min(72vh, 520px); }
+  .cloud-content { inset: 104px 42px 42px; padding-right: 4px; padding-left: 4px; }
+  .dialog-close { top: 75px; right: 34px; }
 }
 /* Wide homepage layout: extend the racing scene instead of leaving blue side gutters. */
 .home-page {
