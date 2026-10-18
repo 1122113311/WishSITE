@@ -161,4 +161,50 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   .home-start > span:nth-child(2) { padding-left: 72px; }
   .home-page::after { height: 68px; bottom: -25px; }
 }
+/* Keep the supplied racing mockup intact and continue its scenery around it. */
+.mockup-page {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse at 5% 7%, #e9f9ff 0 2.5%, transparent 2.7%),
+    radial-gradient(ellipse at 10% 8%, #ffffffd9 0 4.3%, transparent 4.6%),
+    radial-gradient(ellipse at 96% 8%, #ffffffd8 0 4%, transparent 4.3%),
+    linear-gradient(180deg, #32baf5 0%, #19a8ef 61%, #9cdef8 73%, #aee574 86%, #55c452 100%);
+}
+.scene-extension { position: absolute; z-index: 0; inset: 0; min-height: 100svh; overflow: hidden; pointer-events: none; }
+.scene-extension::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 38%; height: 31%; opacity: .2;
+  background: repeating-linear-gradient(90deg, transparent 0 34px, #0878bd 34px 57px, transparent 57px 82px);
+  clip-path: polygon(0 45%, 4% 45%, 4% 23%, 8% 23%, 8% 54%, 12% 54%, 12% 15%, 16% 15%, 16% 50%, 21% 50%, 21% 29%, 25% 29%, 25% 55%, 30% 55%, 30% 10%, 35% 10%, 35% 49%, 39% 49%, 39% 28%, 44% 28%, 44% 54%, 50% 54%, 50% 17%, 55% 17%, 55% 51%, 60% 51%, 60% 25%, 65% 25%, 65% 53%, 70% 53%, 70% 11%, 75% 11%, 75% 52%, 80% 52%, 80% 29%, 85% 29%, 85% 52%, 90% 52%, 90% 16%, 95% 16%, 95% 50%, 100% 50%, 100% 100%, 0 100%);
+}
+.scene-extension::after {
+  content: ""; position: absolute; left: -6%; right: -6%; bottom: -1px; height: clamp(95px, 16vh, 205px);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 90px, #fff6 90px 150px, transparent 150px 250px) 50% 73% / auto 5px no-repeat,
+    linear-gradient(177deg, transparent 0 18%, #75ce4e 19% 33%, #347da4 34% 85%, #f9f7e9 86% 90%, #28506e 91% 100%);
+  clip-path: polygon(0 17%, 10% 10%, 20% 21%, 33% 11%, 47% 19%, 60% 9%, 73% 18%, 87% 8%, 100% 17%, 100% 100%, 0 100%);
+}
+.extension-cloud { position: absolute; width: 175px; height: 38px; border-radius: 50px; background: #f7fdffbd; filter: drop-shadow(0 5px 0 #c5efff70); }
+.extension-cloud::before, .extension-cloud::after { content: ""; position: absolute; bottom: 7px; border-radius: 50%; background: inherit; }
+.extension-cloud::before { width: 58px; height: 58px; left: 27px; }.extension-cloud::after { width: 43px; height: 43px; left: 86px; }
+.cloud-a { top: 12%; left: 2%; }.cloud-b { top: 25%; right: 1%; transform: scale(.75); }
+.extension-star { position: absolute; color: #ffd51c; font: 58px/1 Arial,sans-serif; -webkit-text-stroke: 2px white; filter: drop-shadow(0 3px 0 #1265a2); }
+.star-a { top: 19%; left: 3%; }.star-b { top: 31%; right: 2%; font-size: 43px; }.star-c { top: 57%; left: 2%; font-size: 35px; }
+.extension-track { position: absolute; width: 510px; height: 210px; border: 18px solid #117dca73; border-radius: 50%; transform: rotate(-38deg); }
+.extension-track::after { content: ""; position: absolute; inset: 11px; border: 3px dashed #eaffffb0; border-radius: inherit; }
+.track-a { top: 24%; right: -205px; }.track-b { top: 52%; left: -280px; transform: rotate(24deg); }
+.design { position: relative; z-index: 1; width: min(100%, 1422px); margin: 0 auto; line-height: 0; }
+.design-image { display: block; width: 100%; height: auto; }
+.continue-link {
+  position: absolute; z-index: 2; left: 16.4%; top: 72.9%; width: 68.2%; height: 18.2%; display: block; overflow: hidden;
+  border: 0; border-radius: 54px; background: transparent; color: transparent; text-decoration: none;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: transform 100ms ease;
+}
+.continue-link::after { content: ""; position: absolute; inset: 8px; border-radius: inherit; opacity: 0; background: linear-gradient(180deg, #a95c0018, #8d3b0028); box-shadow: inset 0 8px 15px #7a350044, inset 0 -2px 0 #fff4; transition: opacity 100ms ease; }
+.continue-link:active { transform: translateY(7px) scale(.99); }.continue-link:active::after { opacity: 1; }
+.continue-link:focus-visible { outline: 4px dashed white; outline-offset: 3px; }
+.screen-reader { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { .continue-link, .continue-link::after { transition: none; } }
 
