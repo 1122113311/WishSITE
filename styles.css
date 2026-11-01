@@ -747,3 +747,21 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   width: min(360px, 100%);
   max-height: min(35vh, 340px);
 }
+
+
+/* Keep product cards compact inside the enlarged cloud. */
+.products {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.product-item {
+  width: 100%;
+  max-width: 540px;
+  justify-self: center;
+  padding: 12px 14px;
+}
+.product-image {
+  width: min(260px, 100%);
+  max-height: min(18vh, 180px);
+}
