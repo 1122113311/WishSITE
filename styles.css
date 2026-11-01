@@ -722,8 +722,6 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   margin-left: 8%;
 }
 
-
-
 /* Roomier cloud catalog shared by all desktop categories. */
 .product-dialog {
   width: min(1380px, calc(100vw - 24px));
@@ -748,7 +746,6 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   max-height: min(35vh, 340px);
 }
 
-
 /* Keep product cards compact inside the enlarged cloud. */
 .products {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
@@ -765,3 +762,16 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   width: min(260px, 100%);
   max-height: min(18vh, 180px);
 }
+
+.product-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 12px; }
+.reserve-button { min-height: 42px; padding: 8px 16px; border: 3px solid #087fd2; border-radius: 18px; background: linear-gradient(#ffe54a, #ffad00); color: #102f69; font: 700 15px Arial, sans-serif; cursor: pointer; box-shadow: 0 4px 0 #0759aa; transition: transform 120ms ease, filter 120ms ease; }
+.reserve-button:hover:not(:disabled) { filter: brightness(1.05); transform: translateY(-1px); }
+.reserve-button:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #0759aa; }
+.reserve-button:disabled { border-color: #78b7d8; background: #dff3fc; color: #4f6c82; cursor: default; box-shadow: 0 3px 0 #5e94b4; }
+.reserve-status { color: #a92727; font: 13px Arial, sans-serif; }
+.reservation-admin { margin-top: 34px; padding-top: 24px; border-top: 2px dashed #8bcdf0; }
+.reservation-admin h3 { margin: 0 0 8px; color: var(--navy); font-size: 24px; }
+.reservation-admin > p { color: #5d6e87; line-height: 1.5; }
+.reservation-login-form { max-width: 540px; margin: 18px 0; }
+.reservation-admin .admin-status { margin: 10px 0; }
+
