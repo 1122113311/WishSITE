@@ -110,6 +110,32 @@
     return list;
   };
 
+  let activeCategoryKey = null;
+  let reservationRefreshRunning = false;
+
+  const renderActiveCategory = async () => {
+    const category = categories[activeCategoryKey];
+    if (!category) return;
+    const dialog = document.querySelector('.product-dialog');
+    const isMobileCategoryPage = document.body.classList.contains('category-page');
+    if (!isMobileCategoryPage && !dialog?.open) return;
+    const reservationState = await loadReservationState();
+    const list = isMobileCategoryPage
+      ? document.querySelector('.mobile-category-card .product-list')
+      : dialog.querySelector('.product-list');
+    list.replaceChildren(productMarkup(category.products, activeCategoryKey, reservationState));
+  };
+
+  const refreshActiveCategory = async () => {
+    if (reservationRefreshRunning) return;
+    reservationRefreshRunning = true;
+    try {
+      await renderActiveCategory();
+    } finally {
+      reservationRefreshRunning = false;
+    }
+  };
+
   const mobile = window.matchMedia('(max-width: 700px)');
   document.querySelectorAll('.category-card[data-category]').forEach((card) => {
     card.addEventListener('click', async () => {
@@ -122,13 +148,12 @@
       const category = categories[key];
       const dialog = document.querySelector('.product-dialog');
       if (!category || !dialog) return;
-      const reservationState = await loadReservationState();
+      activeCategoryKey = key;
       dialog.querySelector('#dialog-title').textContent = category.title;
       dialog.querySelector('.dialog-icon').textContent = category.icon;
       dialog.querySelector('.dialog-description').textContent = category.description;
-      const list = dialog.querySelector('.product-list');
-      list.replaceChildren(productMarkup(category.products, key, reservationState));
       dialog.showModal();
+      await refreshActiveCategory();
     });
   });
 
@@ -140,6 +165,14 @@
     });
   }
 
+  window.addEventListener('focus', refreshActiveCategory);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refreshActiveCategory();
+  });
+  window.setInterval(() => {
+    if (!document.hidden) refreshActiveCategory();
+  }, 15000);
+
   if (document.body.classList.contains('category-page')) {
     const key = new URLSearchParams(window.location.search).get('category');
     const category = categories[key];
@@ -148,13 +181,12 @@
       return;
     }
     catalogReady.then(() => {
-      return loadReservationState();
-    }).then((reservationState) => {
+      activeCategoryKey = key;
       document.title = `${category.title} — список для Саши`;
       document.querySelector('.mobile-category-icon').textContent = category.icon;
       document.querySelector('.mobile-category-heading h1').textContent = category.title;
       document.querySelector('.mobile-category-description').textContent = category.description;
-      document.querySelector('.mobile-category-card .product-list').append(productMarkup(category.products, key, reservationState));
+      return refreshActiveCategory();
     });
   }
 })();
