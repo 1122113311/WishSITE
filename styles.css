@@ -722,3 +722,28 @@ body { min-height: 100vh; margin: 0; color: var(--ink); font-family: Georgia, "T
   margin-left: 8%;
 }
 
+
+
+/* Roomier cloud catalog shared by all desktop categories. */
+.product-dialog {
+  width: min(1380px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  padding: 8px;
+}
+.cloud-panel {
+  min-height: min(720px, calc(100dvh - 40px));
+  height: min(88dvh, 980px);
+}
+.cloud-content {
+  inset: clamp(105px, 18%, 170px) clamp(50px, 11%, 150px) clamp(38px, 8%, 75px);
+  padding: clamp(18px, 2.5vw, 34px) clamp(12px, 2vw, 24px) 12px;
+}
+.dialog-close {
+  top: clamp(64px, 12%, 110px);
+  right: clamp(40px, 8%, 110px);
+}
+.dialog-description { max-width: 720px; }
+.product-image {
+  width: min(360px, 100%);
+  max-height: min(35vh, 340px);
+}
