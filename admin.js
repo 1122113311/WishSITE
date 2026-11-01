@@ -184,9 +184,9 @@
         cancel.disabled = true;
         setReservationStatus('Снимаю бронь…');
         try {
-          await window.WishReservations.cancel(reservationAccessToken, reservation);
+          const deletedCount = await window.WishReservations.cancel(reservationAccessToken, reservation);
           await loadReservations();
-          setReservationStatus('Бронь снята. Товар снова доступен всем посетителям.', 'is-success');
+          setReservationStatus(deletedCount === 1 ? 'Бронь снята. Товар снова доступен всем посетителям.' : `Броней снято: ${deletedCount}.`, 'is-success');
         } catch (error) {
           setReservationStatus(`${error.message} Убедитесь, что аккаунт добавлен в reservation_admins.`, 'is-error');
           cancel.disabled = false;
