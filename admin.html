@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#12a8f5">
   <title>Управление списком — сайт для Саши</title>
-  <link rel="stylesheet" href="styles.css?v=admin-panel-1">
+  <link rel="stylesheet" href="styles.css?v=reservation-1">
 </head>
 <body class="race-page admin-page">
   <div class="skyline" aria-hidden="true"></div>
@@ -75,9 +75,25 @@
         <button id="publish-button" class="admin-primary-button" type="button">Сохранить на сайте</button>
       </div>
       <div id="admin-product-list" class="admin-product-list"></div>
+
+      <section class="reservation-admin" aria-labelledby="reservation-admin-title">
+        <h3 id="reservation-admin-title">Брони товаров</h3>
+        <p>Войдите в аккаунт Supabase владельца, чтобы просматривать и снимать брони.</p>
+        <form id="reservation-login-form" class="admin-login-form reservation-login-form">
+          <label for="reservation-email">Электронная почта Supabase</label>
+          <input id="reservation-email" name="email" type="email" autocomplete="username" required>
+          <label for="reservation-password">Пароль Supabase</label>
+          <input id="reservation-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="admin-primary-button" type="submit">Войти к броням</button>
+        </form>
+        <p id="reservation-admin-status" class="admin-status" role="status" aria-live="polite"></p>
+        <div id="reservation-admin-list" class="admin-product-list" hidden></div>
+      </section>
     </section>
   </div>
-  <script src="admin.js?v=admin-price-1" defer></script>
+  <script src="supabase-config.js?v=reservation-1" defer></script>
+  <script src="reservation-client.js?v=reservation-1" defer></script>
+  <script src="admin.js?v=reservation-1" defer></script>
 </body>
 </html>
 
