@@ -53,7 +53,7 @@
       if (product.price) {
         const price = document.createElement('span');
         price.className = 'product-price';
-        price.textContent = product.price;
+        price.textContent = `Цена: ${product.price}`;
         item.append(price);
       }
       if (product.url) {
