@@ -85,7 +85,7 @@
         if (product.price) {
           const price = document.createElement('span');
           price.className = 'admin-row-price';
-          price.textContent = product.price;
+          price.textContent = `Цена: ${product.price}`;
           details.append(price);
         }
         if (product.description) {
