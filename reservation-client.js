@@ -69,9 +69,13 @@
     });
     const response = await fetch(`${tableUrl}?${query}`, {
       method: 'DELETE',
-      headers: { ...headers(accessToken), Prefer: 'return=minimal' }
+      headers: { ...headers(accessToken), Prefer: 'return=representation' }
     });
-    await readResponse(response);
+    const deleted = await readResponse(response);
+    if (!Array.isArray(deleted) || deleted.length === 0) {
+      throw new Error('Supabase не удалил бронь. Проверь, что аккаунт добавлен в reservation_admins.');
+    }
+    return deleted.length;
   };
 
   window.WishReservations = { isConfigured: () => configured, listPublic, reserve, signInAdmin, listForAdmin, cancel };
