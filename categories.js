@@ -22,7 +22,17 @@
       console.warn(error.message);
     });
 
-  const productMarkup = (products) => {
+  const loadReservationState = async () => {
+    if (!window.WishReservations?.isConfigured()) return { configured: false, reservations: [] };
+    try {
+      return { configured: true, reservations: await window.WishReservations.listPublic() };
+    } catch (error) {
+      console.warn('Не удалось загрузить бронирования:', error.message);
+      return { configured: false, reservations: [], error: error.message };
+    }
+  };
+
+  const productMarkup = (products, categoryKey, reservationState) => {
     if (!products.length) {
       const empty = document.createElement('p');
       empty.className = 'empty-products';
@@ -64,6 +74,37 @@
         link.textContent = 'Посмотреть товар';
         item.append(link);
       }
+      const productId = String(product.id || '');
+      const reserved = reservationState.reservations.some((entry) => entry.category === categoryKey && entry.product_id === productId);
+      const actions = document.createElement('div');
+      actions.className = 'product-actions';
+      const reserve = document.createElement('button');
+      reserve.type = 'button';
+      reserve.className = 'reserve-button';
+      reserve.textContent = reserved ? 'Забронировано' : 'Забронировать';
+      reserve.disabled = reserved || !reservationState.configured || !productId;
+      if (!reservationState.configured) reserve.title = 'Бронирование станет доступно после настройки';
+      if (!productId) reserve.title = 'Для этого товара не задан идентификатор';
+      const reserveStatus = document.createElement('span');
+      reserveStatus.className = 'reserve-status';
+      reserveStatus.setAttribute('role', 'status');
+      reserve.addEventListener('click', async () => {
+        reserve.disabled = true;
+        reserve.textContent = 'Бронируем…';
+        reserveStatus.textContent = '';
+        try {
+          const result = await window.WishReservations.reserve({ category: categoryKey, productId, productName: product.name });
+          reserve.textContent = result.alreadyReserved ? 'Уже забронировано' : 'Забронировано';
+          reserve.disabled = true;
+        } catch (error) {
+          reserve.disabled = false;
+          reserve.textContent = 'Забронировать';
+          reserveStatus.textContent = 'Не удалось забронировать. Попробуйте ещё раз.';
+          console.warn(error.message);
+        }
+      });
+      actions.append(reserve, reserveStatus);
+      item.append(actions);
       list.append(item);
     });
     return list;
@@ -81,11 +122,12 @@
       const category = categories[key];
       const dialog = document.querySelector('.product-dialog');
       if (!category || !dialog) return;
+      const reservationState = await loadReservationState();
       dialog.querySelector('#dialog-title').textContent = category.title;
       dialog.querySelector('.dialog-icon').textContent = category.icon;
       dialog.querySelector('.dialog-description').textContent = category.description;
       const list = dialog.querySelector('.product-list');
-      list.replaceChildren(productMarkup(category.products));
+      list.replaceChildren(productMarkup(category.products, key, reservationState));
       dialog.showModal();
     });
   });
@@ -106,11 +148,13 @@
       return;
     }
     catalogReady.then(() => {
+      return loadReservationState();
+    }).then((reservationState) => {
       document.title = `${category.title} — список для Саши`;
       document.querySelector('.mobile-category-icon').textContent = category.icon;
       document.querySelector('.mobile-category-heading h1').textContent = category.title;
       document.querySelector('.mobile-category-description').textContent = category.description;
-      document.querySelector('.mobile-category-card .product-list').append(productMarkup(category.products));
+      document.querySelector('.mobile-category-card .product-list').append(productMarkup(category.products, key, reservationState));
     });
   }
 })();
