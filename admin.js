@@ -12,10 +12,19 @@
   const status = document.querySelector('#admin-status');
   const productForm = document.querySelector('#product-form');
   const productList = document.querySelector('#admin-product-list');
+  const reservationLoginForm = document.querySelector('#reservation-login-form');
+  const reservationStatus = document.querySelector('#reservation-admin-status');
+  const reservationList = document.querySelector('#reservation-admin-list');
   let token = '';
   let fileSha = '';
   let catalog = {};
   let signedInLogin = '';
+  let reservationAccessToken = '';
+
+  const setReservationStatus = (message, kind = '') => {
+    reservationStatus.textContent = message;
+    reservationStatus.className = `admin-status ${kind}`.trim();
+  };
 
   const setStatus = (message, kind = '') => {
     status.textContent = message;
@@ -147,6 +156,70 @@
     document.querySelector('#cancel-edit-button').hidden = true;
   };
 
+  const loadReservations = async () => {
+    const reservations = await window.WishReservations.listForAdmin(reservationAccessToken);
+    reservationList.replaceChildren();
+    if (!reservations.length) {
+      const empty = document.createElement('p');
+      empty.className = 'admin-empty';
+      empty.textContent = 'Сейчас нет забронированных товаров.';
+      reservationList.append(empty);
+      return;
+    }
+    reservations.forEach((reservation) => {
+      const row = document.createElement('article');
+      row.className = 'admin-product-row';
+      const details = document.createElement('div');
+      const name = document.createElement('strong');
+      name.textContent = reservation.product_name;
+      const meta = document.createElement('p');
+      const date = new Date(reservation.created_at);
+      meta.textContent = `${labels[reservation.category] || reservation.category} · ${Number.isNaN(date.valueOf()) ? '' : date.toLocaleString('ru-RU')}`;
+      details.append(name, meta);
+      const cancel = document.createElement('button');
+      cancel.type = 'button';
+      cancel.className = 'admin-secondary-button';
+      cancel.textContent = 'Снять бронь';
+      cancel.addEventListener('click', async () => {
+        cancel.disabled = true;
+        setReservationStatus('Снимаю бронь…');
+        try {
+          await window.WishReservations.cancel(reservationAccessToken, reservation);
+          await loadReservations();
+          setReservationStatus('Бронь снята. Товар снова доступен всем посетителям.', 'is-success');
+        } catch (error) {
+          setReservationStatus(`${error.message} Убедитесь, что аккаунт добавлен в reservation_admins.`, 'is-error');
+          cancel.disabled = false;
+        }
+      });
+      row.append(details, cancel);
+      reservationList.append(row);
+    });
+  };
+
+  reservationLoginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = reservationLoginForm.elements;
+    const submit = reservationLoginForm.querySelector('button[type="submit"]');
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    form.password.value = '';
+    submit.disabled = true;
+    setReservationStatus('Проверяю аккаунт Supabase…');
+    try {
+      const session = await window.WishReservations.signInAdmin(email, password);
+      reservationAccessToken = session.access_token;
+      await loadReservations();
+      reservationList.hidden = false;
+      setReservationStatus('Вход выполнен. Можно снимать брони.', 'is-success');
+    } catch (error) {
+      reservationAccessToken = '';
+      setReservationStatus(`${error.message} Проверьте URL и publishable key, а также входные данные.`, 'is-error');
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     token = tokenInput.value.trim();
@@ -226,6 +299,11 @@
     signedInLogin = '';
     fileSha = '';
     catalog = {};
+    reservationAccessToken = '';
+    reservationLoginForm.reset();
+    reservationList.replaceChildren();
+    reservationList.hidden = true;
+    setReservationStatus('');
     workspace.hidden = true;
     loginForm.hidden = false;
     resetEditor();
