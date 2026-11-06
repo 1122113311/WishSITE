@@ -1,0 +1,138 @@
+.list-heading {
+  display: grid;
+  align-items: center;
+  gap: clamp(6px, 2vw, 20px);
+}
+
+.list-heading-next { grid-template-columns: minmax(0, 1fr) auto; }
+.list-heading-prev { grid-template-columns: auto minmax(0, 1fr) auto; }
+.list-heading-prev::after { content: ""; width: 44px; }
+.list-heading h1 { margin: 0; font: inherit; }
+
+.list-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #a71c50;
+  text-decoration: none;
+  transition: background-color .18s, transform .18s;
+}
+
+.list-arrow svg {
+  width: 29px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.list-arrow:hover { background: #f9dce8; }
+.list-arrow:active { transform: scale(.92); }
+.list-arrow:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+.yulia-page {
+  margin: 0;
+  min-height: 100vh;
+  color: #582438;
+  background: radial-gradient(ellipse at top, #fff8f1, transparent 60%), #f9e4ed;
+  font-family: Georgia, serif;
+}
+
+.yulia-wrap {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: min(720px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: clamp(24px, 7vw, 72px) 0 48px;
+  animation: yulia-enter .24s ease-out;
+}
+
+.yulia-side {
+  position: absolute;
+  top: 24px;
+  bottom: 12px;
+  width: clamp(72px, 12vw, 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  pointer-events: none;
+}
+
+.yulia-side svg { display: block; flex: none; width: 100%; height: auto; }
+.yulia-side-right img:first-child { margin-top: 24px; }
+.yulia-side-left img:last-child { margin-bottom: 18px; }
+.yulia-side-left { right: calc(100% + 12px); }
+.yulia-side-right { left: calc(100% + 12px); }
+
+@media (max-width: 1080px) {
+  .yulia-wrap { width: min(720px, calc(100% - 72px)); }
+  .yulia-side { top: 10px; bottom: 0; width: 30px; }
+  .yulia-side-left { right: calc(100% + 4px); }
+  .yulia-side-right { left: calc(100% + 4px); }
+}
+
+.yulia-header {
+  padding: 22px clamp(10px, 4vw, 36px);
+  border: 1px solid #e1a0ba;
+  border-radius: 28px;
+  background: #fff9f8;
+  text-align: center;
+  box-shadow: 0 5px 0 #eec3d3;
+}
+
+.yulia-header h1 {
+  color: #91244d;
+  font-size: clamp(24px, 5.5vw, 46px);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.yulia-kicker, .yulia-preview-note {
+  font: 600 12px/1.5 system-ui, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8e3658;
+}
+
+.yulia-intro { margin: 12px 0 0; line-height: 1.5; }
+.yulia-products { margin-top: 32px; }
+.yulia-products ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.yulia-products li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e7b7ca;
+  border-radius: 18px;
+  background: #fffafa;
+}
+.yulia-products h2 { margin: 0 0 5px; font-size: 20px; }
+.yulia-products li p { margin: 0; line-height: 1.45; }
+.yulia-item-icon {
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  height: 46px;
+  border-radius: 14px;
+  background: #f8deea;
+  color: #a71c50;
+  font-size: 25px;
+}
+
+@media (max-width: 520px) {
+  .subpage-title.list-heading-next { box-sizing: border-box; padding: 5px 8px 5px 12px; font-size: clamp(17px, 5vw, 24px); }
+}
+
+@keyframes yulia-enter {
+  from { opacity: .65; transform: translateX(12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yulia-wrap { animation: none; }
+  .list-arrow { transition: none; }
+}
